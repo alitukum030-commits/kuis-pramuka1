@@ -3,1673 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Soal Kepramukaan - UU No. 12/2010 & AD/ART</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Kuis UU Pramuka - Tingkat Penggalang</title>
     <style>
-        :root {
-            --primary-color: #2b5329;
-            --primary-hover: #1e3d1d;
-            --accent-color: #d97706;
-            --bg-color: #f4f6f8;
-            --card-bg: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
-            --answer-bg: #f0fdf4;
-            --answer-border: #bbf7d0;
-            --answer-text: #166534;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            padding-bottom: 60px;
-        }
-
-        header {
-            background: linear-gradient(135deg, #1b3818 0%, #2b5329 100%);
-            color: #ffffff;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
-        }
-
-        header p {
-            font-size: 1.05rem;
-            color: #d1fae5;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 30px auto 0;
-            padding: 0 20px;
-        }
-
-        /* Controls Area */
-        .controls {
-            background: var(--card-bg);
-            border-radius: 12px;
+            background-color: #f4f6f9;
+            margin: 0;
             padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: space-between;
-            align-items: center;
         }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 30px;
+            margin: auto;
             border-radius: 8px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        .search-box input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(43, 83, 41, 0.15);
+        h1 {
+            text-align: center;
+            color: #4a2c11;
         }
-
-        .btn-toggle-all {
-            background-color: var(--primary-color);
+        .description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .question-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #795548;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            margin-top: 20px;
         }
-
-        .btn-toggle-all:hover {
-            background-color: var(--primary-hover);
+        button:hover {
+            background-color: #5d4037;
         }
-
-        /* Tabs Navigation */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 2px;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-        }
-
-        .tab-btn:hover:not(.active) {
-            color: var(--text-main);
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .section-header {
-            margin: 30px 0 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .question-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: box-shadow 0.2s, transform 0.2s;
-        }
-
-        .question-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        }
-
-        .question-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .q-number {
-            background: #eef2ff;
-            color: #3730a3;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .btn-answer {
-            background-color: #f3f4f6;
-            color: var(--text-main);
-            border: 1px solid #d1d5db;
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-answer:hover {
-            background-color: #e5e7eb;
-        }
-
-        .answer-box {
-            margin-top: 12px;
-            padding: 12px 16px;
-            background-color: var(--answer-bg);
-            border: 1px solid var(--answer-border);
-            border-radius: 8px;
-            color: var(--answer-text);
-            font-weight: 500;
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .answer-box.show {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        footer {
+        #result {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
             text-align: center;
-            margin-top: 50px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.6rem; }
-            .controls { flex-direction: column; align-items: stretch; }
-            .tabs { flex-wrap: wrap; }
-            .tab-btn { flex: 1; text-align: center; padding: 10px; }
+            color: #2e7d32;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Bank Soal Kepramukaan</h1>
-        <p>Kumpulan Soal Tanya Jawab UU No. 12 Tahun 2010 & AD/ART Gerakan Pramuka</p>
-    </header>
+<div class="container">
+    <h1>Latihan Soal UU Pramuka (Jawaban Singkat)</h1>
+    <p class="description">Tingkat Penggalang - Jawablah pertanyaan di bawah ini dengan singkat dan tepat!</p>
 
-    <div class="container">
-        
-        <!-- Controls -->
-        <div class="controls">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Cari pertanyaan atau jawaban..." onkeyup="filterQuestions()">
-            </div>
-            <button class="btn-toggle-all" onclick="toggleAllAnswers()">Tampilkan / Sembunyikan Semua Jawaban</button>
+    <form id="quizForm">
+        <!-- Soal 1-30 -->
+        <div class="question-item">
+            <div class="question-title">1. Nomor berapakah Undang-Undang yang mengatur tentang Gerakan Pramuka?</div>
+            <input type="text" id="q1" placeholder="Jawaban Anda...">
         </div>
 
-        <!-- Navigation Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('v1')">Soal Versi 1</button>
-            <button class="tab-btn" onclick="switchTab('v2')">Soal Versi 2</button>
-            <button class="tab-btn" onclick="switchTab('v3')">Soal Versi 3</button>
-        </div>
-<div id="v1" class="tab-content active">
-<div class="section-header"><span>Bagian 1: UU No. 12 Tahun 2010 (Soal 1–20)</span></div>
-
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 1</span>
-                <span>Pada tanggal, bulan, dan tahun berapakah UU No. 12 Tahun 2010 diundangkan?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 25 November 2010.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 2</span>
-                <span>Siapakah Presiden Republik Indonesia yang menandatangani/mengesahkan UU No. 12 Tahun 2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Susilo Bambang Yudhoyono.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 3</span>
-                <span>Berapa jumlah Bab dan Pasal yang terkandung dalam UU No. 12 Tahun 2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 9 Bab dan 49 Pasal.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 4</span>
-                <span>Apakah asas dari Gerakan Pramuka menurut UU No. 12 Tahun 2010 Bab II Pasal 3?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pancasila.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 5</span>
-                <span>Menurut Pasal 11 UU No. 12/2010, sebutkan hak anggota Pramuka terkait penggunaan atribut!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Menggunakan atribut Pramuka.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 6</span>
-                <span>Menurut Pasal 12 UU No. 12/2010, kewajiban utama anggota Pramuka adalah melaksanakan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kode Kehormatan (Satya dan Darma Pramuka).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 7</span>
-                <span>Sebutkan 4 jenjang pendidikan kepramukaan secara berurutan sesuai Pasal 20 UU No. 12/2010!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Siaga, Penggalang, Penegak, dan Pandega.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 8</span>
-                <span>Berapakah batas usia anggota Pramuka jenjang Siaga menurut UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 7 sampai 10 tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 9</span>
-                <span>Berapakah batas usia anggota Pramuka jenjang Penggalang menurut UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 11 sampai 15 tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 10</span>
-                <span>Berapakah batas usia anggota Pramuka jenjang Penegak menurut UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 16 sampai 20 tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 11</span>
-                <span>Berapakah batas usia anggota Pramuka jenjang Pandega menurut UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 21 sampai 25 tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 12</span>
-                <span>Berdasarkan UU No. 12/2010 Pasal 43, sebutkan sumber keuangan utama dari iuran internal anggota!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Iuran anggota.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 13</span>
-                <span>Selain iuran anggota, sebutkan 2 sumber dana pemerintah untuk Gerakan Pramuka menurut Pasal 43!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> APBN dan APBD.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 14</span>
-                <span>Apakah sifat bantuan dari masyarakat untuk keuangan Gerakan Pramuka menurut UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tidak mengikat.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 15</span>
-                <span>Menyelesaikan jenjang pendidikan kepramukaan memberikan hak kepada peserta didik untuk mendapatkan kecakapan yang dibuktikan dengan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tanda Kecakapan Umum / Khusus (SKU/SKK).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 16</span>
-                <span>Menurut Pasal 4 UU No. 12/2010, salah satu tujuan Pramuka adalah membentuk anggota yang memiliki kecakapan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kecakapan hidup (life skills).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 17</span>
-                <span>Menurut UU No. 12/2010, pendidikan kepramukaan diselenggarakan bagi kaum muda guna menumbuhkan tunas bangsa yang berjiwa...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Patriotik / Pancasila.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 18</span>
-                <span>Pasal berapakah dalam UU No. 12 Tahun 2010 yang mengatur tentang Hak Anggota?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 11.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 19</span>
-                <span>Pasal berapakah dalam UU No. 12 Tahun 2010 yang mengatur tentang Kewajiban Anggota?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 12.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 20</span>
-                <span>Pasal berapakah dalam UU No. 12 Tahun 2010 yang mengatur tentang sumber keuangan Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 43.
-            </div>
-        </div>
-        <div class="section-header"><span>Bagian 2: AD/ART Gerakan Pramuka (Soal 21–40)</span></div>
-
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 21</span>
-                <span>Apakah motto resmi Gerakan Pramuka Indonesia?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Satyaku Kudarmakan, Darmaku Kubaktikan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 22</span>
-                <span>Apakah lambang resmi organisasi Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tunas Kelapa (Siluet Cikal).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 23</span>
-                <span>Siapakah pencipta lambang Tunas Kelapa Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Soenardjo Adhyosoepoetro.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 24</span>
-                <span>Forum musyawarah tertinggi Gerakan Pramuka di tingkat Nasional disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Nasional (Munas).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 25</span>
-                <span>Berapa tahunkah masa bakti kepengurusan Kwartir Nasional (Kwarnas)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 5 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 26</span>
-                <span>Sebutkan nama kwartir Gerakan Pramuka yang berkedudukan di tingkat Provinsi!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kwartir Daerah (Kwarda).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 27</span>
-                <span>Sebutkan nama kwartir Gerakan Pramuka yang berkedudukan di tingkat Kabupaten/Kota!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kwartir Cabang (Kwarcab).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 28</span>
-                <span>Sebutkan nama kwartir Gerakan Pramuka yang berkedudukan di tingkat Kecamatan!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kwartir Ranting (Kwarran).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 29</span>
-                <span>Berapa tahunkah masa bakti kepengurusan Kwartir Ranting (Kwarran)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 3 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 30</span>
-                <span>Satuan organisasi paling bawah yang berbasis di sekolah atau tempat tinggal disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Gugusdepan (Gudep).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 31</span>
-                <span>Musyawarah tertinggi di tingkat Gugusdepan dinamakan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Gugusdepan (Mugus).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 32</span>
-                <span>Berapa tahunkah masa bakti pengurus Gugusdepan (Gudep)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 3 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 33</span>
-                <span>Badan independen yang dibentuk di setiap musyawarah untuk memeriksa pengawasan keuangan Pramuka adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Badan Pemeriksa Keuangan (BPK) Gerakan Pramuka.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 34</span>
-                <span>Musyawarah tertinggi untuk tingkat Kwartir Daerah (Kwarda) disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Daerah (Musda).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 35</span>
-                <span>Musyawarah tertinggi untuk tingkat Kwartir Cabang (Kwarcab) disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Cabang (Muscab).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 36</span>
-                <span>Sebutkan sifat organisasi Gerakan Pramuka terhadap politik praktis!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Non-politik / Tidak berpolitik praktis.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 37</span>
-                <span>Surat Keputusan (SK) Kwarnas Nomor berapakah yang menetapkan petunjuk penyelenggaraan Lambang Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> SK Kwarnas No. 06/KN/72.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 38</span>
-                <span>Sebutkan tingkatan SKU pada jenjang Pramuka Penggalang secara berurutan!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Ramu, Rakit, dan Terap.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 39</span>
-                <span>Sebutkan tingkatan SKU pada jenjang Pramuka Siaga secara berurutan!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Mula, Bantu, dan Tata.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 40</span>
-                <span>Kepadanya BPK Gerakan Pramuka bertanggung jawab langsung setelah melakukan pemeriksaan keuangan?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Forum Musyawarah (Munas/Musda/Muscab/Musran/Mugus).
-            </div>
-        </div>
-        </div>
-<div id="v2" class="tab-content ">
-<div class="section-header"><span>Bagian 1: UU No. 12 Tahun 2010 (Soal 1–20)</span></div>
-
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 1</span>
-                <span>Lembaga atau instansi apa yang secara sah mengundangkan UU No. 12 Tahun 2010 tentang Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kementerian Hukum dan Hak Asasi Manusia (Kemenkumham) RI.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 2</span>
-                <span>Siapakah pejabat Sekretaris Kabinet/Menteri Sekretaris Negara pada masa disahkannya UU No. 12 Tahun 2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Patrialis Akbar (selaku Menkumham yang mengundangkan) / Sudi Silalahi (Mensesneg).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 3</span>
-                <span>Dalam UU No. 12/2010, bab manakah yang secara khusus mengatur tentang &quot;Pendidikan Kepramukaan&quot;?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Bab IV.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 4</span>
-                <span>Menurut UU No. 12/2010 Pasal 3, apa yang menjadi dasar kepribadian dan moralitas seluruh anggota Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pancasila.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 5</span>
-                <span>Sebutkan hak anggota Pramuka yang berkaitan dengan perlindungan hukum saat menjalankan kegiatan formal!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Mendapatkan perlindungan dalam kegiatan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 6</span>
-                <span>Sebutkan kewajiban finansial yang wajib dipenuhi oleh setiap anggota Pramuka menurut Pasal 12!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Membayar iuran keanggotaan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 7</span>
-                <span>Sebutkan tingkatan kecakapan umum (SKU) untuk jenjang Pramuka Siaga!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Mula, Bantu, dan Tata.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 8</span>
-                <span>Anggota Gerakan Pramuka berusia 13 tahun masuk ke dalam jenjang pendidikan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Penggalang.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 9</span>
-                <span>Berapakah rentang usia untuk anggota Pramuka yang menduduki jenjang Penegak?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 16 sampai 20 tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 10</span>
-                <span>Jenjang pendidikan kepramukaan terakhir bagi peserta didik sebelum menjadi Pembina/Dewasa adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pandega.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 11</span>
-                <span>Berapakah rentang usia anggota Pramuka Pandega menurut UU No. 12 Tahun 2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 21 sampai 25 tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 12</span>
-                <span>Selain iuran anggota, sebutkan sumber keuangan Pramuka dari sektor APBN/APBD menurut Pasal 43!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Anggaran Pendapatan dan Belanja Negara / Daerah.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 13</span>
-                <span>Keuangan Gerakan Pramuka dituntut untuk dikelola secara transparan dan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Akuntabel.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 14</span>
-                <span>Apa syarat utama bantuan dari masyarakat agar dapat diterima menjadi keuangan Gerakan Pramuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tidak mengikat.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 15</span>
-                <span>Menurut UU No. 12/2010, pencapaian kecakapan khusus anggota Pramuka dibuktikan dengan pemberian...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tanda Kecakapan Khusus (TKK).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 16</span>
-                <span>Salah satu tujuan pendidikan kepramukaan adalah membentuk anggota yang berjiwa patriotik dan taat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Hukum.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 17</span>
-                <span>Pasal berapakah yang mengatur tentang asas Gerakan Pramuka dalam UU No. 12 Tahun 2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 3.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 18</span>
-                <span>Pasal berapakah dalam UU No. 12 Tahun 2010 yang mengatur tentang &quot;Tujuan Gerakan Pramuka&quot;?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 4.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 19</span>
-                <span>Sebutkan bab dalam UU No. 12/2010 yang memuat tentang &quot;Hak dan Kewajiban Anggota&quot;!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Bab III.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 20</span>
-                <span>Dalam UU No. 12/2010, pasal berapakah yang menegaskan jenjang pendidikan kepramukaan?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 20.
-            </div>
-        </div>
-        <div class="section-header"><span>Bagian 2: AD/ART Gerakan Pramuka (Soal 21–40)</span></div>
-
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 21</span>
-                <span>Semboyan atau moto &quot;Satyaku Kudarmakan, Darmaku Kubaktikan&quot; memiliki fungsi utama untuk menanamkan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Rasa bangga dan semangat pengabdian.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 22</span>
-                <span>Lambang Gerakan Pramuka Tunas Kelapa ditetapkan secara resmi melalui Surat Keputusan Kwarnas Nomor...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> SK Kwarnas No. 06/KN/72.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 23</span>
-                <span>Siapakah nama tokoh pembina kepramukaan yang menciptakan wujud lambang Tunas Kelapa?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Soenardjo Adhyosoepoetro.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 24</span>
-                <span>Apakah wadah musyawarah tertinggi Gerakan Pramuka di tingkat Daerah (Provinsi)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Daerah (Musda).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 25</span>
-                <span>Berapa tahunkah masa bakti kepengurusan Kwartir Daerah (Kwarda)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 5 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 26</span>
-                <span>Berapa tahunkah masa bakti kepengurusan Kwartir Cabang (Kwarcab)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 5 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 27</span>
-                <span>Sebutkan kepanjangan dari singkatan kwartir tingkat kecamatan, yaitu Kwarran!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kwartir Ranting.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 28</span>
-                <span>Forum musyawarah tertinggi Pramuka di tingkat Ranting/Kecamatan dinamakan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Ranting (Musran).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 29</span>
-                <span>Musyawarah Ranting (Musran) dilaksanakan secara berkala setiap berapa tahun sekali?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 3 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 30</span>
-                <span>Satuan organisasi Pramuka yang bertempat di sekolah/pangkalan disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Gugusdepan (Gudep).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 31</span>
-                <span>Berapa tahunkah masa bakti kepengurusan Gudep berdasarkan AD/ART?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 3 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 32</span>
-                <span>Singkatan dari forum musyawarah tertinggi di tingkat pangkalan/Gugusdepan adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Mugus (Musyawarah Gugusdepan).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 33</span>
-                <span>Badan independen pemeriksa keuangan Pramuka di tingkat kwartir bertanggung jawab langsung kepada...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Forum Musyawarah (Munas/Musda/Muscab/Musran/Mugus).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 34</span>
-                <span>Musyawarah tertinggi kepramukaan yang diselenggarakan 5 tahun sekali di tingkat Kabupaten/Kota adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Cabang (Muscab).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 35</span>
-                <span>Kwartir yang memimpin dan membina Gerakan Pramuka di tingkat nasional adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kwartir Nasional (Kwarnas).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 36</span>
-                <span>Mengapa Gerakan Pramuka bersifat terbuka?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Karena terbuka untuk seluruh warga negara Indonesia tanpa membedakan suku, ras, agama, dan golongan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 37</span>
-                <span>Sebutkan 3 tingkatan SKU pada golongan Penggalang!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Ramu, Rakit, dan Terap.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 38</span>
-                <span>Sebutkan 2 tingkatan SKU pada golongan Penegak!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Bantara dan Laksana.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 39</span>
-                <span>Lembaga eksternal/internal mandiri yang melakukan fungsi pengawasan keuangan di Kwartir disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Badan Pemeriksa Keuangan (BPK) Gerakan Pramuka.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 40</span>
-                <span>Pedoman dasar tata kelola dan aturan operasional Gerakan Pramuka yang diperbarui dalam Munas disingkat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> AD/ART (Anggaran Dasar &amp; Anggaran Rumah Tangga).
-            </div>
-        </div>
-        </div>
-<div id="v3" class="tab-content ">
-<div class="section-header"><span>Bagian 1: UU No. 12 Tahun 2010 (Soal 1–20)</span></div>
-
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 1</span>
-                <span>Di kota manakah UU No. 12 Tahun 2010 tentang Gerakan Pramuka ditetapkan oleh Presiden RI?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Jakarta.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 2</span>
-                <span>UU No. 12 Tahun 2010 terdiri atas 9 Bab. Bab I dalam undang-undang tersebut mengatur tentang...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Ketentuan Umum.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 3</span>
-                <span>Menurut Pasal 3 UU No. 12/2010, Pancasila berkedudukan sebagai... Gerakan Pramuka.</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Asas.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 4</span>
-                <span>Membentuk kader bangsa yang berakhlak mulia, berjiwa patriotik, dan taat hukum merupakan rumusan dari... Gerakan Pramuka pada Pasal 4.</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tujuan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 5</span>
-                <span>Hak anggota Pramuka untuk membela diri dan mendapatkan perlindungan diatur secara tegas dalam pasal berapakah?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pasal 11.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 6</span>
-                <span>Menjaga nama baik dan kehormatan Gerakan Pramuka merupakan salah satu bentuk... anggota.</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kewajiban.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 7</span>
-                <span>Jenjang pendidikan kepramukaan kedua setelah Siaga adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Penggalang.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 8</span>
-                <span>Menurut UU No. 12/2010, seorang peserta didik yang berusia 9 tahun dikategorikan ke dalam golongan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Siaga.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 9</span>
-                <span>Berapakah batas usia maksimal bagi seorang anggota Pramuka Penggalang?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 15 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 10</span>
-                <span>Peserta didik yang berada pada rentang usia 16 hingga 20 tahun dihimpun dalam jenjang...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Penegak.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 11</span>
-                <span>Anggota Pramuka dewasa muda berusia 22 tahun berada pada jenjang pendidikan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Pandega.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 12</span>
-                <span>Sumber keuangan Gerakan Pramuka dari dana APBD dikategorikan sebagai bantuan dari anggaran tingkat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Daerah / Pemerintah Daerah.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 13</span>
-                <span>Menurut Pasal 43, usaha mandiri yang dilakukan Gerakan Pramuka untuk memperoleh dana harus bersifat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Sah (dan tidak bertentangan dengan hukum).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 14</span>
-                <span>Apa konsekuensi jika bantuan masyarakat untuk Pramuka bersifat mengikat menurut UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tidak boleh diterima (karena bantuan harus tidak mengikat).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 15</span>
-                <span>Pemenuhan Syarat Kecakapan Umum (SKU) memberikan hak kepada anggota Pramuka untuk memperoleh...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Tanda Kecakapan Umum (TKU).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 16</span>
-                <span>Apa kewajiban anggota Pramuka terhadap Kode Kehormatan sesuai Pasal 12 UU No. 12/2010?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Melaksanakannya.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 17</span>
-                <span>Sebutkan bulan pengundangan UU No. 12 Tahun 2010!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> November.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 18</span>
-                <span>Pendidikan kepramukaan bertujuan membentuk anggota yang memiliki kepribadian yang berakhlak...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Mulia.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 19</span>
-                <span>Pasal 20 UU No. 12/2010 membagi jenjang pendidikan kepramukaan menjadi berapa jenjang?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 4 Jenjang.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 20</span>
-                <span>Pengelolaan keuangan Gerakan Pramuka yang bersumber dari APBN/APBD diatur berdasarkan ketentuan peraturan...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Perundang-undangan.
-            </div>
-        </div>
-        <div class="section-header"><span>Bagian 2: AD/ART Gerakan Pramuka (Soal 21–40)</span></div>
-
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 21</span>
-                <span>Sebutkan klausa pertama dari Motto Gerakan Pramuka!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Satyaku Kudarmakan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 22</span>
-                <span>Wujud visual dari lambang Gerakan Pramuka berupa siluet pohon kelapa saat masih muda disebut...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Cikal.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 23</span>
-                <span>Lambang Gerakan Pramuka diciptakan oleh seorang pegawai Departemen Pertanian bernama...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Soenardjo Adhyosoepoetro.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 24</span>
-                <span>Kwartir Nasional (Kwarnas) berkedudukan di ibu kota negara, yaitu di...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Jakarta.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 25</span>
-                <span>Berapa tahunkah periode kepengurusan Kwartir Nasional (Kwarnas)?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 5 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 26</span>
-                <span>Struktur pimpinan Gerakan Pramuka di tingkat Kabupaten Kebumen dinamakan Kwartir...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Cabang (Kwarcab Kebumen).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 27</span>
-                <span>Kwartir Daerah (Kwarda) memimpin pelaksanaan tugas kepramukaan di tingkat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Provinsi.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 28</span>
-                <span>Kwartir Ranting (Kwarran) bertugas memimpin Gerakan Pramuka di tingkat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Kecamatan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 29</span>
-                <span>Forum Musyawarah Ranting (Musran) dilaksanakan berkala setiap berapa tahun?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 3 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 30</span>
-                <span>Pangkalan SMP/MTs dalam Gerakan Pramuka dikelompokkan ke dalam satuan organisasi...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Gugusdepan (Gudep).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 31</span>
-                <span>Berapa tahunkah masa jabatan pengurus Gugusdepan dalam satu periode?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 3 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 32</span>
-                <span>Musyawarah Gugusdepan (Mugus) memegang kekuasaan tertinggi untuk menetapkan rencana kerja di tingkat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Gugusdepan / Pangkalan.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 33</span>
-                <span>Pemeriksaan keuangan kwartir dilakukan oleh Badan Pemeriksa Keuangan (BPK) Pramuka yang bersifat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Independen / Mandiri.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 34</span>
-                <span>Forum tertinggi untuk memilih Ketua Kwartir Cabang (Kwarcab) baru adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah Cabang (Muscab).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 35</span>
-                <span>Forum Musyawarah Nasional (Munas) Gerakan Pramuka diselenggarakan setiap berapa tahun sekali?</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> 5 Tahun.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 36</span>
-                <span>Gerakan Pramuka bukan merupakan bagian dari partai politik tertentu karena Pramuka bersifat...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Non-politik / Independen.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 37</span>
-                <span>Sebutkan nama tingkatan SKU tertinggi pada golongan Penggalang!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Penggalang Terap.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 38</span>
-                <span>Sebutkan nama tingkatan SKU pertama/terendah pada golongan Penggalang!</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Penggalang Ramu.
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 39</span>
-                <span>BPK Gerakan Pramuka menyampaikan laporan pertanggungjawaban audit keuangannya dalam forum...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Musyawarah (Munas/Musda/Muscab/Musran/Mugus).
-            </div>
-        </div>
-        
-        <div class="question-card">
-            <div class="question-title">
-                <span class="q-number">Soal 40</span>
-                <span>Kepanjangan dari singkatan AD dan ART dalam Gerakan Pramuka adalah...</span>
-            </div>
-            <button class="btn-answer" onclick="toggleAnswer(this)">Lihat Jawaban</button>
-            <div class="answer-box">
-                <strong>Jawaban:</strong> Anggaran Dasar dan Anggaran Rumah Tangga.
-            </div>
-        </div>
+        <div class="question-item">
+            <div class="question-title">2. Pada tahun berapakah UU Gerakan Pramuka disahkan?</div>
+            <input type="text" id="q2" placeholder="Jawaban Anda...">
         </div>
 
-    </div>
+        <div class="question-item">
+            <div class="question-title">3. Nilai-nilai luhur yang tercantum dalam kurikulum pendidikan Gerakan Pramuka disebut Kode ...</div>
+            <input type="text" id="q3" placeholder="Jawaban Anda...">
+        </div>
 
-    <footer>
-        <p>&copy; Bank Soal Materi Kepramukaan - Digenerate Secara Otomatis</p>
-    </footer>
+        <div class="question-item">
+            <div class="question-title">4. Kode Kehormatan untuk Pramuka Penggalang terdiri dari Trisatya dan ...</div>
+            <input type="text" id="q4" placeholder="Jawaban Anda...">
+        </div>
 
-    <script>
-        function switchTab(tabId) {
-            // Remove active class from all tabs and buttons
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        <div class="question-item">
+            <div class="question-title">5. Berapa jumlah janji yang terdapat di dalam Trisatya?</div>
+            <input type="text" id="q5" placeholder="Jawaban Anda...">
+        </div>
 
-            // Set active
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
+        <div class="question-item">
+            <div class="question-title">6. Berapa jumlah ketentuan moral yang terdapat di dalam Dasadarma?</div>
+            <input type="text" id="q6" placeholder="Jawaban Anda...">
+        </div>
 
-        function toggleAnswer(btn) {
-            const answerBox = btn.nextElementSibling;
-            answerBox.classList.toggle('show');
-            if (answerBox.classList.contains('show')) {
-                btn.textContent = 'Sembunyikan Jawaban';
-            } else {
-                btn.textContent = 'Lihat Jawaban';
+        <div class="question-item">
+            <div class="question-title">7. Menurut UU No. 12 Tahun 2010, rentang usia untuk anggota Pramuka Penggalang adalah ... tahun sampai ... tahun.</div>
+            <input type="text" id="q7" placeholder="Contoh: 11-15">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">8. Anggota Gerakan Pramuka yang berusia 7 sampai 10 tahun disebut Pramuka ...</div>
+            <input type="text" id="q8" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">9. Anggota Gerakan Pramuka yang berusia 16 sampai 20 tahun disebut Pramuka ...</div>
+            <input type="text" id="q9" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">10. Satuan pendidikan paling dasar dalam Gerakan Pramuka yang berbasis di sekolah dinamakan ...</div>
+            <input type="text" id="q10" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">11. Pengawasan dan bantuan pimpinan Gugusdepan berada di bawah tanggung jawab Majeled Pembimbing yang disingkat ...</div>
+            <input type="text" id="q11" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">12. Lembaga kepemimpinan kolektif Gerakan Pramuka di tingkat Kecamatan dinamakan Kwartir ...</div>
+            <input type="text" id="q12" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">13. Kwartir Cabang berada di tingkat pemerintahan ... / ...</div>
+            <input type="text" id="q13" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">14. Kwartir Daerah bertugas mengkoordinasikan Pramuka di tingkat ...</div>
+            <input type="text" id="q14" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">15. Pimpinan tertinggi Gerakan Pramuka di tingkat Nasional berada pada Kwartir ...</div>
+            <input type="text" id="q15" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">16. Lambang Gerakan Pramuka adalah gambar ...</div>
+            <input type="text" id="q16" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">17. Tanda kecakapan yang wajib dimiliki setiap anggota Pramuka setelah menyelesaikan syarat tertentu dinamakan Tanda Kecakapan ... (TKU).</div>
+            <input type="text" id="q17" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">18. Sebutkan tingkatan pertama pada tingkatan kecakapan umum Pramuka Penggalang!</div>
+            <input type="text" id="q18" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">19. Tingkatan tertinggi pada kecakapan umum Pramuka Penggalang dinamakan Penggalang ...</div>
+            <input type="text" id="q19" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">20. Tanda kecakapan yang diberikan kepada anggota atas keahlian khusus di bidang tertentu dinamakan Tanda Kecakapan ... (TKK).</div>
+            <input type="text" id="q20" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">21. Setiap warga negara Indonesia yang berusia 7 sampai 25 tahun berhak menjadi anggota Gerakan Pramuka sebagai Anggota ...</div>
+            <input type="text" id="q21" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">22. Presiden Republik Indonesia menjabat sebagai Ketua Majelis Pembimbing ... (Mabinas).</div>
+            <input type="text" id="q22" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">23. Sistem pendidikan dalam Gerakan Pramuka yang menggunakan metode "Ing ngarsa sung tulada, Ing madya mangun karsa, Tut wuri handayani" dinamakan Sistem ...</div>
+            <input type="text" id="q23" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">24. Kegiatan pendidikan luar sekolah yang dilaksanakan di alam terbuka dalam bentuk kegiatan yang menarik dinamakan Pendidikan ...</div>
+            <input type="text" id="q24" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">25. Musyawarah tertinggi Gerakan Pramuka di tingkat Nasional yang dilaksanakan 5 tahun sekali dinamakan Musyawarah ... (Munas).</div>
+            <input type="text" id="q25" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">26. Keuangan Gerakan Pramuka dapat diperoleh dari iuran anggota, bantuan pemerintah, dan ... yang tidak mengikat.</div>
+            <input type="text" id="q26" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">27. Atribut, bendera, dan pakaian seragam Pramuka diatur serta ditetapkan oleh Kwartir ...</div>
+            <input type="text" id="q27" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">28. Pendidikan Kepramukaan bertujuan untuk membentuk setiap anggota Pramuka agar memiliki kepribadian yang beriman, bertakwa, dan berakhlak ...</div>
+            <input type="text" id="q28" placeholder="Jawaban Anda...">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">29. Hari Pramuka di Indonesia diperingati setiap tanggal ...</div>
+            <input type="text" id="q29" placeholder="Contoh: 14 Agustus">
+        </div>
+
+        <div class="question-item">
+            <div class="question-title">30. Badan yang bertugas memeriksa pengelolaan keuangan Kwartir dinamakan Badan Pemeriksa ...</div>
+            <input type="text" id="q30" placeholder="Jawaban Anda...">
+        </div>
+
+        <button type="button" onclick="checkAnswers()">Periksa Jawaban</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkAnswers() {
+        const answers = {
+            q1: ["12", "12 tahun 2010", "no 12", "no. 12"],
+            q2: ["2010"],
+            q3: ["kehormatan"],
+            q4: ["dasadarma", "dasa darma"],
+            q5: ["3", "tiga"],
+            q6: ["10", "sepuluh"],
+            q7: ["11-15", "11 - 15", "11 sampai 15", "11-15 tahun"],
+            q8: ["siaga"],
+            q9: ["penegak"],
+            q10: ["gugusdepan", "gugus depan", "gudep"],
+            q11: ["mabigus"],
+            q12: ["ranting", "kwarran"],
+            q13: ["kabupaten/kota", "kabupaten kota", "kabupaten", "kota"],
+            q14: ["provinsi"],
+            q15: ["nasional", "kwarnas"],
+            q16: ["tunas kelapa", "kelapa"],
+            q17: ["umum"],
+            q18: ["ramu"],
+            q19: ["terap"],
+            q20: ["khusus"],
+            q21: ["muda"],
+            q22: ["nasional"],
+            q23: ["among"],
+            q24: ["kepramukaan"],
+            q25: ["nasional"],
+            q26: ["sumbangan", "donasi", "hibah"],
+            q27: ["nasional", "kwarnas"],
+            q28: ["mulia"],
+            q29: ["14 agustus"],
+            q30: ["keuangan"]
+        };
+
+        let score = 0;
+        let total = 30;
+
+        for (let i = 1; i <= total; i++) {
+            let userAns = document.getElementById('q' + i).value.trim().toLowerCase();
+            if (answers['q' + i].includes(userAns)) {
+                score++;
             }
         }
 
-        let showAll = false;
-        function toggleAllAnswers() {
-            showAll = !showAll;
-            const activeTab = document.querySelector('.tab-content.active');
-            const answerBoxes = activeTab.querySelectorAll('.answer-box');
-            const buttons = activeTab.querySelectorAll('.btn-answer');
+        let finalScore = Math.round((score / total) * 100);
+        document.getElementById('result').innerText = "Nilai Anda: " + finalScore + " (" + score + " dari 30 soal benar)";
+    }
+</script>
 
-            answerBoxes.forEach(box => {
-                if (showAll) {
-                    box.classList.add('show');
-                } else {
-                    box.classList.remove('show');
-                }
-            });
-
-            buttons.forEach(btn => {
-                btn.textContent = showAll ? 'Sembunyikan Jawaban' : 'Lihat Jawaban';
-            });
-        }
-
-        function filterQuestions() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const activeTab = document.querySelector('.tab-content.active');
-            const cards = activeTab.querySelectorAll('.question-card');
-
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
